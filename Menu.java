@@ -115,11 +115,11 @@ public class Menu {
 	}
 
 	private void presentationHeader() {
-		line(30);
-		System.out.println("\t SHOPPING LIST");
-		line(30);
-		System.out.printf("%8s\t%12s\n", "ITEM", "PRICE");
-		line(30);
+		line(40);
+		System.out.println("\t     SHOPPING LIST");
+		line(40);
+		System.out.printf("%8s\t%11s%s\n", "ITEM", "PRICE", "   QUANTITY");
+		line(40);
 	}
 
 	private void line(int num) {
@@ -131,7 +131,8 @@ public class Menu {
 
 	private void subtotal() {
 		double subtotal = inventoryManager.calculateSubtotal();
-		System.out.printf("\t%s%.2f\n", "   SUBTOTAL   $", subtotal);
+		int quantity = inventoryManager.calculateQuantity();
+		System.out.printf("\t%s%.2f%5s%d%s\n", "   SUBTOTAL   $", subtotal, " ", quantity, " items total");
 	}
 
 	private void removeItem() {
@@ -149,19 +150,21 @@ public class Menu {
 	private void viewItems() {
 		presentationHeader();
 		printItems();
-		line(30);
+		line(40);
 		subtotal();
-		line(30);
+		line(40);
 	}
 
 	private void printItems() {
 		String productName;
 		double productPrice;
+		int productQuantity;
 		int length = inventoryManager.getLength();
 		for(int i = 0; i < length; i++) {
 			productName = inventoryManager.getName(i);
 			productPrice = inventoryManager.getPrice(i);
-			System.out.printf("%2d. %-17s $%.2f\n", i+1, productName, productPrice);
+			productQuantity = inventoryManager.getQuantity(i);
+			System.out.printf("%2d. %-17s $%.2f%3s%3d\n", i+1, productName, productPrice, " ", productQuantity);
 		}
 	}
 
